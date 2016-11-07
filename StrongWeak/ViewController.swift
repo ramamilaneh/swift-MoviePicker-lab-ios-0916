@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     
     var button: UIButton!
     var movieLabels: [UILabel]!
+    var thankYouLabel: UILabel!
+    var movieImageView: UIImageView!
     
     @IBOutlet weak var movieLabelOne: UILabel!
     @IBOutlet weak var movieLabelTwo: UILabel!
@@ -26,6 +28,8 @@ class ViewController: UIViewController {
         view.backgroundColor = UIColor(red:0.14, green:0.10, blue:0.36, alpha:1.00)
         movieLabels = [movieLabelOne, movieLabelTwo, movieLabelThree ,movieLabelFour]
         createButton()
+        createThankYouLabel()
+        createMovieImageView()
         
     }
     
@@ -66,23 +70,12 @@ extension ViewController {
     
     func display(image: UIImage) {
         
-        let height = view.frame.size.height * 0.4
-        let width = (300 / 461) * height
+        movieImageView.image = image
         
-        let origin = randomXandY(height: height, width: width)
-        
-        let frame = CGRect(x: origin.x, y: origin.y, width: width, height: height)
-        
-        let imageView = UIImageView(frame: frame)
-        view.addSubview(imageView)
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.image = image
-        imageView.alpha = 0.0
-
-        UIView.animate(withDuration: 3.5, delay: 0.0, options: .transitionCurlDown, animations: {
+        UIView.animate(withDuration: 3.5, delay: 0.0, options: [], animations: {
             
-            imageView.alpha = 1.0
+            self.movieImageView.alpha = 1.0
+            self.thankYouLabel.alpha = 1.0
             
         }) { _ in }
         
@@ -166,6 +159,35 @@ extension ViewController {
         view.addSubview(button)
         button.backgroundColor = UIColor.red.withAlphaComponent(0.6)
         createGestureRecognizer()
+        
+    }
+    
+    func createThankYouLabel() {
+        
+        thankYouLabel = UILabel()
+        thankYouLabel.font = UIFont(name: "AvenirNext-DemiBold", size: 38.0)
+        thankYouLabel.textColor = UIColor.white
+        thankYouLabel.text = "Thanks Laura! 🎉"
+        thankYouLabel.alpha = 0.0
+        thankYouLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(thankYouLabel)
+        thankYouLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        thankYouLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50.0).isActive = true
+        
+    }
+    
+    func createMovieImageView() {
+        
+        let height = view.frame.size.height * 0.4
+        let width = (300 / 461) * height
+        let origin = randomXandY(height: height, width: width)
+        let frame = CGRect(x: origin.x, y: origin.y, width: width, height: height)
+        
+        movieImageView = UIImageView(frame: frame)
+        view.addSubview(movieImageView)
+        movieImageView.contentMode = .scaleAspectFill
+        movieImageView.clipsToBounds = true
+        movieImageView.alpha = 0.0
         
     }
     
