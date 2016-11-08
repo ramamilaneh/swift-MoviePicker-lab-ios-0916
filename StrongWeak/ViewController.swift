@@ -69,8 +69,10 @@ extension ViewController {
     }
     
     func display(image: UIImage) {
+        OperationQueue.main.addOperation {
+             self.movieImageView.image = image
         
-        movieImageView.image = image
+       
         
         UIView.animate(withDuration: 3.5, delay: 0.0, options: [], animations: {
             
@@ -78,7 +80,7 @@ extension ViewController {
             self.thankYouLabel.alpha = 1.0
             
         }) { _ in }
-        
+        }
     }
     
 }
@@ -108,9 +110,9 @@ extension ViewController {
             let posterString = json["Poster"] as! String
             
             let posterURL = URL(string: posterString)!
-            
-            self.button.isHidden = true
-            
+            OperationQueue.main.addOperation {
+                 self.button.isHidden = true
+            }
             self.downloadImage(at: posterURL)
             
             }.resume()
